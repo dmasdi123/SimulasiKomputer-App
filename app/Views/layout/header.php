@@ -30,7 +30,7 @@
                     </li>
                 </ul>
                 <div class="d-flex ml-2">
-                    <button class="btn btn-outline-light" type="submit"><a href="<?= base_url() ?>//dasboard/pembelian">Login</a></button>
+                    <a href="<?= base_url() ?>//dasboard/pembelian"><button class="btn btn-outline-light" type="submit">Login</button></a>
                 </div>
             </div>
         </div>
