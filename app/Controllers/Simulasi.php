@@ -6,6 +6,7 @@ class Simulasi extends BaseController
 {
     public function index()
     {
-        return view('pages/simulasi');
+        $data = ['title' => 'Simulasi Rakitan | Cipta Mandiri Komputer'];
+        return view('pages/simulasi', $data);
     }
 }
