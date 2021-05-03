@@ -16,9 +16,12 @@
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="proc" aria-label="Default select example" name="proc">
                     <option selected>Prosessor</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <?php foreach ($barang as $b) : ?>
+
+                        <option value="1"><?= $b['nama_barang']; ?></option>
+
+                    <?php endforeach; ?>
+
                 </select>
             </div>
             <div class="col-md-1 sm-12 mt-2">
@@ -240,8 +243,6 @@
                 <button class="btn btn-primary w-20" type="button">Print Preview</button>
                 <button class="btn btn-primary w-20" type="button">Cetak Simulasi</button>
             </div>
-
-
         </div>
     </form>
 </div>
