@@ -35,6 +35,8 @@ $routes->get('/simulasi', 'Simulasi::index');
 $routes->get('/dashboard', 'Dashboard::penjualan');
 $routes->get('/dashboard/pembelian', 'Dashboard::index');
 
+$routes->get('/simulasi/(:segment)', 'Simulasi::index/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

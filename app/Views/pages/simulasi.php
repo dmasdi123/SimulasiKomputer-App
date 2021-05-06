@@ -6,7 +6,20 @@
         <div class="row justify-content-center">
             <h4 style="margin-top: 9%;">Simulasi PC Rakitan</h4>
             <hr>
+
         </div>
+        <br>
+        <!-- radio button intel / amd -->
+        Short by :
+        <a href="/simulasi/Intel">
+            <button type="button" class="btn btn-primary">Intel</button>
+        </a>
+        <a href="/simulasi/AMD">
+            <button type="button" class="btn btn-danger">AMD</button>
+        </a>
+        <!-- end -->
+        <br>
+        <br>
         <div class="row">
             <div class="col-md-7 sm-12">Nama Barang</div>
             <div class="col-md-1 sm-12">Qty :</div>
@@ -16,16 +29,16 @@
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="proc" aria-label="Default select example" name="proc">
                     <option selected>Prosessor</option>
-                    <?php foreach ($barang as $b) : ?>
+                    <?php foreach ($barangproc as $p) : ?>
 
-                        <option value="1"><?= $b['nama_barang']; ?></option>
+                        <option value="<?= $p['id_barang']; ?>"><?= $p['nama_barang']; ?> (Rp.<?= number_format($p['harga_jual']); ?>)</option>
 
                     <?php endforeach; ?>
 
                 </select>
             </div>
             <div class="col-md-1 sm-12 mt-2">
-                <input type="number" id="qty_proc" class="form-control sm">
+                <input type="text" id="qty_proc" class="form-control sm">
             </div>
             <div class="col-md-4 sm-12 mt-2">
                 <input type="text" id="out_proc" class="form-control" placeholder="Harga" disabled>
@@ -33,15 +46,15 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-7 sm-12 mt-2">
-                <select class="form-select" id="mobo" aria-label="Default select example" name="proc">
+                <select class="form-select" id="mobo" aria-label="Default select example" name="mobo">
                     <option selected>Motherboard</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <?php foreach ($barangmb as $mb) : ?>
+                        <option value="<?= $mb['id_barang']; ?>"><?= $mb['nama_barang']; ?> (Rp.<?= number_format($mb['harga_jual']); ?>)</option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="col-md-1 sm-12 mt-2">
-                <input type="number" id="qty_mobo" class="form-control sm">
+                <input type="text" id="qty_mobo" class="form-control sm">
             </div>
             <div class="col-md-4 sm-12 mt-2">
                 <input type="text" id="out_mobo" class="form-control" placeholder="Harga" disabled>
@@ -51,9 +64,10 @@
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="ram" aria-label="Default select example" name="proc">
                     <option selected>RAM</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <?php foreach ($barangram as $ram) : ?>
+                        <option value="<?= $ram['id_barang']; ?>"><?= $ram['nama_barang']; ?> (Rp.<?= number_format($ram['harga_jual']); ?>)</option>
+                    <?php endforeach; ?>
+
                 </select>
             </div>
             <div class="col-md-1 sm-12 mt-2">
@@ -98,7 +112,7 @@
         <div class="row mb-3">
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="proc" aria-label="Default select example" name="proc">
-                    <option selected>Open this select menu</option>
+                    <option selected>Hardisk</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -114,7 +128,7 @@
         <div class="row mb-3">
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="proc" aria-label="Default select example" name="proc">
-                    <option selected>Open this select menu</option>
+                    <option selected>SSD</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -130,7 +144,7 @@
         <div class="row mb-3">
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="proc" aria-label="Default select example" name="proc">
-                    <option selected>Open this select menu</option>
+                    <option selected>Casing</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -146,7 +160,7 @@
         <div class="row mb-3">
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="proc" aria-label="Default select example" name="proc">
-                    <option selected>Open this select menu</option>
+                    <option selected>Fan / Cooler</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -162,7 +176,7 @@
         <div class="row mb-3">
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="proc" aria-label="Default select example" name="proc">
-                    <option selected>Open this select menu</option>
+                    <option selected>Peripheral</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -178,7 +192,7 @@
         <div class="row mb-3">
             <div class="col-md-7 sm-12 mt-2">
                 <select class="form-select" id="proc" aria-label="Default select example" name="proc">
-                    <option selected>Open this select menu</option>
+                    <option selected>Monitor</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -248,44 +262,5 @@
 </div>
 <br>
 <br>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
-<script>
-    $("#qty_proc").keyup(function() {
-        qty_proc = parseInt($(this).val());
-        var proc = 2000000;
-        jml_proc = qty_proc * proc;
-        $("#out_proc").val(jml_proc);
-        $("#out_all").val(jml_proc);
-        $("#qty_all").val(qty_proc);
-    });
-
-    $("#qty_mobo").keyup(function() {
-        qty_mb = parseInt($(this).val());
-        var mobo = 1400000;
-        jml_mb = qty_mb * mobo;
-        jml1 = jml_proc + jml_mb;
-        qty1 = qty_proc + qty_mb;
-        $("#out_mobo").val(jml_mb);
-        $("#out_all").val(jml1);
-        $("#qty_all").val(qty1);
-    });
-
-    $("#qty_ram").keyup(function() {
-        qty_ram = parseInt($(this).val());
-        var ram = 500000;
-        jml_ram = qty_ram * ram;
-        jml2 = jml_proc + jml_ram + jml_mb;
-        qty2 = qty_proc + qty_ram + qty_mb;
-        $("#out_ram").val(jml_ram);
-        $("#out_all").val(jml2);
-        $("#qty_all").val(qty2);
-    });
-</script>
-
-</body>
-
-</html>
+<?= $this->include('layout/footer'); ?>
 <?= $this->endSection(''); ?>
