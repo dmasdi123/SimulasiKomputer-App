@@ -143,6 +143,7 @@
               </div>
               <div class="card card-info">
                 <form class="form-horizontal">
+                  <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-8">
@@ -150,17 +151,21 @@
                         <input type="text" class="form-control mb-2" disabled>
                         <label class="ml-1">Nama Barang</label>
                         <div class="input-group mb-2">
-                          <input type="text" class="form-control" placeholder="Nama Barang">
+                          <input type="text" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>" placeholder="Nama Barang">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPembelian">
                             Cari
                           </button>
                         </div>
                         <label class="ml-1">Satuan</label>
-                        <input type="number" class="form-control mb-2">
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
                         <label class="ml-1">Jumlah</label>
-                        <input type="number" class="form-control mb-2">
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
                         <label class="ml-1">Harga Beli</label>
-                        <input type="number" class="form-control mb-2">
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
+                        <label class="ml-1">Harga Jual</label>
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
+                        <label class="ml-1">Power</label>
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
                         <label class="ml-1">Tanggal Beli</label>
                         <input type="date" class="form-control mb-2" disabled>
                         <button class="btn btn-primary btn-md btn-block mt-3" type="button">Simpan</button>
