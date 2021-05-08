@@ -50,7 +50,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="<?= base_url() ?>/asset/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Dasboard Admin</span>
     </a>
 
@@ -59,7 +59,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<?= base_url() ?>/asset/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Febrian Dimas Winaputra</a>
@@ -142,7 +142,7 @@
                 <h2 class="card-title">Input Data Pembelian</h2>
               </div>
               <div class="card card-info">
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="/Dashboard/save" method="POST">
                   <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
                   <div class="card-body">
                     <div class="row">
@@ -151,24 +151,22 @@
                         <input type="text" class="form-control mb-2" disabled>
                         <label class="ml-1">Nama Barang</label>
                         <div class="input-group mb-2">
-                          <input type="text" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>" placeholder="Nama Barang">
+                          <input type="text" class="form-control <?= ($validation->hasError('nama_barang')) ? 'is-invalid' : ''; ?>" id="nama_barang" name="nama_barang" autofocus value="<?= old('nama_barang'); ?>" placeholder="Nama Barang">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPembelian">
                             Cari
                           </button>
                         </div>
-                        <label class="ml-1">Satuan</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
                         <label class="ml-1">Jumlah</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('qty')) ? 'is-invalid' : ''; ?>" id="qty" name="qty" autofocus value="<?= old('qty'); ?>">
                         <label class="ml-1">Harga Beli</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('harga_beli')) ? 'is-invalid' : ''; ?>" id="harga_beli" name="harga_beli" autofocus value="<?= old('harga_beli'); ?>">
                         <label class="ml-1">Harga Jual</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('harga_jual')) ? 'is-invalid' : ''; ?>" id="harga_jual" name="harga_jual" autofocus value="<?= old('harga_jual'); ?>">
                         <label class="ml-1">Power</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= old('judul'); ?>">
+                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('power')) ? 'is-invalid' : ''; ?>" id="power" name="power" autofocus value="<?= old('power'); ?>">
                         <label class="ml-1">Tanggal Beli</label>
                         <input type="date" class="form-control mb-2" disabled>
-                        <button class="btn btn-primary btn-md btn-block mt-3" type="button">Simpan</button>
+                        <button class="btn btn-primary btn-md btn-block mt-3" type="submit">Simpan</button>
                       </div>
                     </div>
                   </div>

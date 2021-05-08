@@ -2,14 +2,33 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\CodeIgniter;
+use CodeIgniter\Database\Query;
+use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\HTTP\Request;
+use Config\Exceptions;
+use Config\Validation;
+use Exception;
+
 class Dashboard extends BaseController
 {
+	protected $masterBarangPembelian;
+
+
+
+	public function __construct()
+	{
+		$this->MasterBarangPembelian = new \App\Models\MasterBarangPembelian();
+	}
+
+
 	public function index()
 	{
 		$data = [
-			'master_barang' => $this->masterBarang->getmasterBarang()
+			'tittle' => 'Form Pembelian',
+			'validation' => \Config\Services::Validation()
 		];
-		return view('dashboard/pembelian');
+		return view('dashboard/pembelian', $data);
 	}
 
 	public function penjualan()
@@ -64,11 +83,11 @@ class Dashboard extends BaseController
 		}
 
 
-		$slug = url_title($this->request->getVar('judul'), '-', true);
+		// $slug = url_title($this->request->getVar('judul'), '-', true);
 
 		$this->masterBarang->save([
-			'nama_barang' => $this->request->getVar('judul'),
-			'qty' => $this->request->getVar('judul'),
+			'nama_barang' => $this->request->getVar('nama_barang'),
+			'qty' => $this->request->getVar('qty'),
 			'harga_beli' => $this->request->getVar('harga_beli'),
 			'harga_jual' => $this->request->getVar('harga_jual'),
 			'power' => $this->request->getVar('power')
