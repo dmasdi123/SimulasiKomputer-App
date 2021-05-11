@@ -18,7 +18,7 @@ class Dashboard extends BaseController
 
 	public function __construct()
 	{
-		$this->MasterBarangPembelian = new \App\Models\MasterBarangPembelian();
+		$this->masterBarangPembelian = new \App\Models\MasterBarangPembelian();
 	}
 
 
@@ -51,28 +51,24 @@ class Dashboard extends BaseController
 				'rules' => 'required',
 				'errors' => [
 					'required' => 'Masukan Kolom QTY {field}',
-					'is_unique' => '{field} Ini Sudah Terdaftar'
 				]
 			],
 			'harga_beli' => [
 				'rules' => 'required',
 				'errors' => [
 					'required' => 'Masukan Harga Beli {field}',
-					'is_unique' => '{field} Ini Sudah Terdaftar'
 				]
 			],
 			'harga_jual' => [
 				'rules' => 'required',
 				'errors' => [
 					'required' => 'Masukan Harga Jual {field}',
-					'is_unique' => '{field} Ini Sudah Terdaftar'
 				]
 			],
 			'power' => [
 				'rules' => 'required',
 				'errors' => [
 					'required' => 'Masukan Kolom Power {field}',
-					'is_unique' => '{field} Ini Sudah Terdaftar'
 				]
 			]
 		])) {
@@ -85,7 +81,8 @@ class Dashboard extends BaseController
 
 		// $slug = url_title($this->request->getVar('judul'), '-', true);
 
-		$this->masterBarang->save([
+		$this->masterBarangPembelian->save([
+			'id_barang' => $this->request->getVar('id_barang'),
 			'nama_barang' => $this->request->getVar('nama_barang'),
 			'qty' => $this->request->getVar('qty'),
 			'harga_beli' => $this->request->getVar('harga_beli'),

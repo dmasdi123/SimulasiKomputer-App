@@ -8,7 +8,7 @@ class MasterBarangPembelian extends Model
 {
     protected $table      = 'master_barang';
     protected $useTimestamps = true;
-    protected $allowedFields = ['nama_barang', 'qty', 'harga_beli', 'harga_jual', 'power'];
+    protected $allowedFields = ['id_barang', 'nama_barang', 'qty', 'harga_beli', 'harga_jual', 'power'];
 
     public function getPembelianBarang($id = false)
     {
