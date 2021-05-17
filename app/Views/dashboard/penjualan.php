@@ -229,7 +229,7 @@
                   <tbody>
                     <tr>
                       <th scope="row">1</th>
-                      <td>000001</td>
+                      <td><?= $autoinv; ?></td>
                       <td>Processor</td>
                       <td>12</td>
                       <td>Rp. 5.000.000</td>

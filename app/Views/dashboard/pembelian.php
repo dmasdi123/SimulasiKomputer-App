@@ -86,13 +86,13 @@
           <li class="nav-item menu-open">
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/dashboard/penjualan" class="nav-link">
+                <a href="/dashboard" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Penjualan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('/') ?>" class="nav-link active">
+                <a href="<?= base_url('/dashboard/pembelian') ?>" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Pembelian</p>
                 </a>
@@ -147,13 +147,13 @@
                 </div>
               <?php endif; ?>
               <div class="card card-info">
-                <form class="form-horizontal" action="<?= base_url() ?>/Dashboard/savePembelian" method="POST">
+                <form class="form-horizontal" action="<?= base_url() ?>/Dashboard/save" method="POST">
                   <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
                   <div class="card-body ">
                     <div class="row justify-content-center">
                       <div class="col-md-8">
-                        <label class="ml-1">No Faktur</label>
-                        <input type="text" class="form-control mb-2" id_barang="id_barang" name="id_barang" autofocus hidden>
+                        <label class="ml-1" hidden>No Faktur</label>
+                        <input type="text" class="form-control mb-2" id_barang="id_barang" name="id_barang" value="<?= $autoinv; ?>" autofocus hidden>
                         <div class="invalid-feedback">
                           <?= $validation->getError('id_barang'); ?>
                         </div>

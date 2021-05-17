@@ -31,18 +31,21 @@ class Dashboard extends BaseController
 		$data = [
 			'tittle' => 'Form Pembelian',
 			'validation' => \Config\Services::Validation(),
-			'datapembelian' => $this->masterBarangPembelian->getPembelianBarang(),
-			'autoinv' => $this->masterBarangPembelian->autoinvsm()
+			'autoinv' => $this->masterBarangPembelian->getPembelianBarang()
 		];
 		return view('dashboard/pembelian', $data);
 	}
 
 	public function penjualan()
 	{
-		return view('dashboard/penjualan');
+
+		$data = [
+			'autoinv' => $this->masterBarangPembelian->getPembelianBarang()
+		];
+		return view('dashboard/penjualan', $data);
 	}
 
-	public function savePembelian()
+	public function save()
 	{
 
 		if (!$this->validate([
@@ -79,8 +82,7 @@ class Dashboard extends BaseController
 			]
 		])) {
 
-			// $validation = \Config\Services::Validation();
-			// return redirect()->to('/komik/create')->withInput()->with('validation', $validation);
+
 			return redirect()->to('/dashboard/pembelian')->withInput();
 		}
 
@@ -89,7 +91,7 @@ class Dashboard extends BaseController
 
 
 		$this->masterBarangPembelian->save([
-			'id_barang' => $autoinv,
+			'id_barang' => $this->masterBarangPembelian->getPembelianBarang(),
 			// 'id_barang' => $this->request->getAutoNumber('master_barang', 'id_barang', '000', 11),
 			'nama_barang' => $this->request->getVar('nama_barang'),
 			'qty' => $this->request->getVar('qty'),
@@ -97,7 +99,7 @@ class Dashboard extends BaseController
 			'harga_jual' => $this->request->getVar('harga_jual'),
 			'power' => $this->request->getVar('power')
 		]);
-
+		// dd($this->request->getVar());
 		session()->setFlashData('pesan', 'Data Pembelian Berhasil Ditambahkan');
 
 		return redirect()->to('/dashboard/pembelian');
