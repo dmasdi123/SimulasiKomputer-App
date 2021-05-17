@@ -32,7 +32,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/simulasi', 'Simulasi::index');
-$routes->get('/dashboard', 'Dashboard::penjualan');
+$routes->add('/dashboard', 'Dashboard::penjualan');
 $routes->get('/dashboard/pembelian', 'Dashboard::index');
 
 $routes->get('/simulasi/(:segment)', 'Simulasi::index/$1');

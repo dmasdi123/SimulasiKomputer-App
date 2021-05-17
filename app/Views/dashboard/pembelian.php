@@ -147,13 +147,13 @@
                 </div>
               <?php endif; ?>
               <div class="card card-info">
-                <form class="form-horizontal" action="<?= base_url() ?>/Dashboard/save" method="POST">
+                <form class="form-horizontal" action="<?= base_url() ?>/Dashboard/savePembelian" method="POST">
                   <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
-                  <div class="card-body">
-                    <div class="row">
+                  <div class="card-body ">
+                    <div class="row justify-content-center">
                       <div class="col-md-8">
                         <label class="ml-1">No Faktur</label>
-                        <input type="text" class="form-control mb-2 <?= ($validation->hasError('id_barang')) ? 'is-invalid' : ''; ?>" id_barang="id_barang" name="id_barang" autofocus value="<?= old('id_barang'); ?>">
+                        <input type="text" class="form-control mb-2" id_barang="id_barang" name="id_barang" autofocus hidden>
                         <div class="invalid-feedback">
                           <?= $validation->getError('id_barang'); ?>
                         </div>

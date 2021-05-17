@@ -13,12 +13,16 @@ use Exception;
 class Dashboard extends BaseController
 {
 	protected $masterBarangPembelian;
+	protected $masterBarangPenjualan;
+	protected $masterBarangAntrian;
 
 
 
 	public function __construct()
 	{
 		$this->masterBarangPembelian = new \App\Models\MasterBarangPembelian();
+		$this->masterBarangPenjualan = new \App\Models\masterBarangPenjualan();
+		$this->masterBarangAntrian = new \App\Models\MasterBarangAntrian();
 	}
 
 
@@ -26,7 +30,9 @@ class Dashboard extends BaseController
 	{
 		$data = [
 			'tittle' => 'Form Pembelian',
-			'validation' => \Config\Services::Validation()
+			'validation' => \Config\Services::Validation(),
+			'datapembelian' => $this->masterBarangPembelian->getPembelianBarang(),
+			'autoinv' => $this->masterBarangPembelian->autoinvsm()
 		];
 		return view('dashboard/pembelian', $data);
 	}
@@ -36,7 +42,7 @@ class Dashboard extends BaseController
 		return view('dashboard/penjualan');
 	}
 
-	public function save()
+	public function savePembelian()
 	{
 
 		if (!$this->validate([
@@ -79,10 +85,12 @@ class Dashboard extends BaseController
 		}
 
 
-		// $slug = url_title($this->request->getVar('judul'), '-', true);
+
+
 
 		$this->masterBarangPembelian->save([
-			'id_barang' => $this->request->getVar('id_barang'),
+			'id_barang' => $autoinv,
+			// 'id_barang' => $this->request->getAutoNumber('master_barang', 'id_barang', '000', 11),
 			'nama_barang' => $this->request->getVar('nama_barang'),
 			'qty' => $this->request->getVar('qty'),
 			'harga_beli' => $this->request->getVar('harga_beli'),
@@ -90,8 +98,36 @@ class Dashboard extends BaseController
 			'power' => $this->request->getVar('power')
 		]);
 
-		session()->setFlashData('pesan', 'Data Berhasil Ditambahkan');
+		session()->setFlashData('pesan', 'Data Pembelian Berhasil Ditambahkan');
 
 		return redirect()->to('/dashboard/pembelian');
+	}
+
+
+	public function insertPenjualan()
+	{
+		$this->masterBarangPenjualan->insert([
+			'invoice' => $this->request->getVar('invoice'),
+			'nama_brg' => $this->request->getVar('nama_brg'),
+			'qty' => $this->request->getVar('qty'),
+			'harga_jual' => $this->request->getVar('harga_jual'),
+			'cutomer' => $this->request->getVar('cutomer'),
+			'notelp' => $this->request->getVar('notelp'),
+			'alamat' => $this->request->getVar('alamat')
+		]);
+
+		$this->masterBarangAntrian->insert([
+			'invoice' => $this->request->getVar('invoice'),
+			'nama_brg' => $this->request->getVar('nama_brg'),
+			'qty' => $this->request->getVar('qty'),
+			'harga_jual' => $this->request->getVar('harga_jual'),
+			'cutomer' => $this->request->getVar('cutomer'),
+			'notelp' => $this->request->getVar('notelp'),
+			'alamat' => $this->request->getVar('alamat')
+		]);
+
+		session()->setFlashData('pesan', 'Data Penjualan Berhasil Ditambahkan');
+
+		return redirect()->to('/dashboard');
 	}
 }
