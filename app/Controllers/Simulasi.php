@@ -15,6 +15,7 @@ class Simulasi extends BaseController
         $this->barang = new MasterBarangModel();
     }
 
+
     public function index($kategori = '')
     {
 
@@ -24,7 +25,15 @@ class Simulasi extends BaseController
                 'title' => 'Simulasi Rakitan | Cipta Mandiri Komputer',
                 'barangproc' => $this->barang->KatProc(),
                 'barangmb' => $this->barang->KatMb(),
-                'barangram' => $this->barang->KatRam()
+                'barangram' => $this->barang->KatRam(),
+                'barangvga' => $this->barang->KatVGA(),
+                'barangpsu' => $this->barang->KatPSU(),
+                'baranghdd' => $this->barang->KatHDD(),
+                'barangssd' => $this->barang->KatSSD(),
+                'barangcase' => $this->barang->KatCase(),
+                'barangcooler' => $this->barang->KatCooler(),
+                'barangperiperal' => $this->barang->Katphral(),
+                'barangmonitor' => $this->barang->KatMonitor()
             ];
             //kirim param ke model masterbarang
         } else {
@@ -32,7 +41,15 @@ class Simulasi extends BaseController
                 'title' => 'Simulasi Rakitan | Cipta Mandiri Komputer',
                 'barangproc' => $this->barang->KatProc($kategori),
                 'barangmb' => $this->barang->KatMb($kategori),
-                'barangram' => $this->barang->KatRam()
+                'barangram' => $this->barang->KatRam(),
+                'barangvga' => $this->barang->KatVGA(),
+                'barangpsu' => $this->barang->KatPSU(),
+                'baranghdd' => $this->barang->KatHDD(),
+                'barangssd' => $this->barang->KatSSD(),
+                'barangcase' => $this->barang->KatCase(),
+                'barangcooler' => $this->barang->KatCooler(),
+                'barangperiperal' => $this->barang->Katphral(),
+                'barangmonitor' => $this->barang->KatMonitor()
             ];
         }
 
@@ -46,7 +63,7 @@ class Simulasi extends BaseController
 
     public function getItem()
     {
-        $key_id = $_POST['id']; //menerima data dari ajax
+        $key_id = $this->request->getVar('id'); //menerima data dari ajax
         $result = $this->barang->getPriceItem($key_id); //input value dari ajax ke model
         return json_encode($result);
     }

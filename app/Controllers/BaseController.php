@@ -26,6 +26,7 @@ class BaseController extends Controller
 	 * to all other controllers that extend BaseController.
 	 *
 	 * @var arrHTTP\IncomingRequest
+
 	 */
 	protected $request = [];
 
