@@ -10,7 +10,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="" class="nav-link">Page Simulasi</a>
+        <a href="/simulasi" class="nav-link">Page Simulasi</a>
       </li>
     </ul>
 
@@ -92,9 +92,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('/dashboard/pembelian') ?>" class="nav-link active">
+                <a href="<?= base_url('/dashboard/masterbarang') ?>" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Data Pembelian</p>
+                  <p>Master Barang</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -119,12 +119,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Pembelian</h1>
+            <h1 class="m-0">Master Barang</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dasboard</a></li>
-              <li class="breadcrumb-item active">Data Pembelian</li>
+              <li class="breadcrumb-item active">Master Barang</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -139,7 +139,7 @@
           <div class="col">
             <div class="card card-primary">
               <div class="card-header">
-                <h2 class="card-title">Input Data Pembelian</h2>
+                <h2 class="card-title">Input Master Barang</h2>
               </div>
               <?php if (session()->getFlashData('pesan')) :  ?>
                 <div class="alert alert-success" role="alert">
@@ -163,37 +163,45 @@
                           <div class="invalid-feedback">
                             <?= $validation->getError('nama_barang'); ?>
                           </div>
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPembelian">
-                            Cari
+                          <button type="button" onclick="" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPembelian">
+                            Daftar Barang
                           </button>
                         </div>
                         <label class="ml-1">Jumlah</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('qty')) ? 'is-invalid' : ''; ?>" id="qty" name="qty" autofocus value="<?= old('qty'); ?>">
+                        <input type="text" class="form-control mb-2 <?= ($validation->hasError('qty')) ? 'is-invalid' : ''; ?>" id="qty" name="qty" autofocus value="<?= old('qty'); ?>">
                         <div class="invalid-feedback">
                           <?= $validation->getError('qty'); ?>
                         </div>
                         <label class="ml-1">Harga Beli</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('harga_beli')) ? 'is-invalid' : ''; ?>" id="harga_beli" name="harga_beli" autofocus value="<?= old('harga_beli'); ?>">
+                        <input type="text" class="form-control mb-2 <?= ($validation->hasError('harga_beli')) ? 'is-invalid' : ''; ?>" id="harga_beli" name="harga_beli" autofocus value="<?= old('harga_beli'); ?>">
                         <div class="invalid-feedback">
                           <?= $validation->getError('harga_beli'); ?>
                         </div>
                         <label class="ml-1">Harga Jual</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('harga_jual')) ? 'is-invalid' : ''; ?>" id="harga_jual" name="harga_jual" autofocus value="<?= old('harga_jual'); ?>">
+                        <input type="text" class="form-control mb-2 <?= ($validation->hasError('harga_jual')) ? 'is-invalid' : ''; ?>" id="harga_jual" name="harga_jual" autofocus value="<?= old('harga_jual'); ?>">
                         <div class="invalid-feedback">
                           <?= $validation->getError('harga_jual'); ?>
                         </div>
-                        <label class="ml-1">Power</label>
-                        <input type="number" class="form-control mb-2 <?= ($validation->hasError('power')) ? 'is-invalid' : ''; ?>" id="power" name="power" autofocus value="<?= old('power'); ?>">
+                        <label class="ml-1">Kategori</label>
+                        <select class="custom-select mb-2 <?= ($validation->hasError('power')) ? 'is-invalid' : ''; ?>" id="inputGroupSelect02" id="power" name="power" value="<?= old('power'); ?>">
+                          <option selected>Pilih Kategori...</option>
+                          <?php foreach ($kategori as $k) : ?>
+                            <option value="<?= $k['id_kategori']; ?>"><?= $k['nama_kat']; ?></option>
+                          <?php endforeach; ?>
+
+                        </select>
+
                         <div class="invalid-feedback">
                           <?= $validation->getError('power'); ?>
                         </div>
-                        <label class="ml-1">Tanggal Beli</label>
-                        <input type="date" class="form-control mb-2" disabled>
+                        <label class="ml-1">Tanggal Input</label>
+                        <input type="text" class="form-control mb-2" value="<?= date('d-m-Y'); ?>" disabled>
                         <button class="btn btn-primary btn-md btn-block mt-3" type="submit">Simpan</button>
                       </div>
                     </div>
                   </div>
                 </form>
+                <!-- <a href="/dashboard/data_barang" target="_blank"><button type="submit" class="btn btn-primary">cek doang</button></a> -->
               </div>
             </div>
           </div>
@@ -202,68 +210,40 @@
     </div>
   </div>
 </div>
-<!-- modal data barang penjualan -->
+<!-- modal data barang -->
 <div class="modal fade" id="exampleModalPembelian" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLongTitle">Daftar Barang</h3>
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
-        </form>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-responsive-sm" id="tbl-barang">
               <thead class="thead-dark text-center">
                 <tr>
-                  <th scope="col">Kode Barang</th>
-                  <th scope="col">Nama Barang</th>
-                  <th scope="col">Stock</th>
-                  <th scope="col">Aksi</th>
+                  <th scope="col">Kode</th>
+                  <th scope="col">Barang</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Buy</th>
+                  <th scope="col">Sell</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">BR001</th>
-                  <td>Galax Geforce RTX 2060 6GB DDR6 - Dual Fan</td>
-                  <td class="text-center">4</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR002</th>
-                  <td>AM4 Raven Ridge Ryzen 3 2200G 3.5 Ghz Box</td>
-                  <td class="text-center">6</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR003</th>
-                  <td>ASRock X570 Phantom Gaming X</td>
-                  <td class="text-center">3</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR004</th>
-                  <td>ASRock X570 Phantom Gaming X</td>
-                  <td class="text-center">3</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR005</th>
-                  <td>ASRock X570 Phantom Gaming X</td>
-                  <td class="text-center">3</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR006</th>
-                  <td>ASRock X570 Phantom Gaming X</td>
-                  <td class="text-center">3</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
+              <tbody id="show-brg-data">
+                <?php foreach ($master as $brg) : ?>
+                  <tr>
+                    <td><?= $brg['id_barang']; ?></td>
+                    <td><?= $brg['nama_barang']; ?></td>
+                    <td><?= $brg['qty']; ?></td>
+                    <td>Rp. <?= number_format($brg['harga_beli']); ?></td>
+                    <td>Rp. <?= number_format($brg['harga_jual']); ?></td>
+                  </tr>
+                <?php endforeach; ?>
+
               </tbody>
             </table>
+
           </div>
         </div>
       </div>

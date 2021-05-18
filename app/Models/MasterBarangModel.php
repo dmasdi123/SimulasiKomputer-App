@@ -107,4 +107,10 @@ class MasterBarangModel extends Model
     {
         return $this->table('kategori')->select('*')->join('master_barang', 'master_barang.id_kategori = kategori.id_kategori')->where('id_barang', $key_id)->findAll();
     }
+
+    // show kategori
+    public function getKategori()
+    {
+        return $this->findAll();
+    }
 }

@@ -9,13 +9,14 @@ use CodeIgniter\HTTP\Request;
 use Config\Exceptions;
 use Config\Validation;
 use Exception;
+use App\Models\MasterBarangModel;
 
 class Dashboard extends BaseController
 {
 	protected $masterBarangPembelian;
 	protected $masterBarangPenjualan;
 	protected $masterBarangAntrian;
-
+	protected $kategorimodel;
 
 
 	public function __construct()
@@ -23,23 +24,28 @@ class Dashboard extends BaseController
 		$this->masterBarangPembelian = new \App\Models\MasterBarangPembelian();
 		$this->masterBarangPenjualan = new \App\Models\masterBarangPenjualan();
 		$this->masterBarangAntrian = new \App\Models\MasterBarangAntrian();
+		$this->kategorimodel = new MasterBarangModel();
 	}
 
 
 	public function index()
 	{
+		$databrg =  $this->masterBarangPembelian->showBarang();
 		$data = [
-			'tittle' => 'Form Pembelian',
+			'title' => 'Dashboard - Master Barang',
 			'validation' => \Config\Services::Validation(),
-			'autoinv' => $this->masterBarangPembelian->getPembelianBarang()
+			'autoinv' => $this->masterBarangPembelian->getPembelianBarang(),
+			'master' => $databrg,
+			'kategori' => $this->kategorimodel->getKategori()
 		];
-		return view('dashboard/pembelian', $data);
+		return view('dashboard/masterbarang', $data);
 	}
 
 	public function penjualan()
 	{
 
 		$data = [
+			'title' => 'Dashboard - Penjualan',
 			'autoinv' => $this->masterBarangPembelian->getPembelianBarang()
 		];
 		return view('dashboard/penjualan', $data);
@@ -83,26 +89,24 @@ class Dashboard extends BaseController
 		])) {
 
 
-			return redirect()->to('/dashboard/pembelian')->withInput();
+			return redirect()->to('/dashboard/masterbarang')->withInput();
 		}
-
-
-
 
 
 		$this->masterBarangPembelian->save([
 			'id_barang' => $this->masterBarangPembelian->getPembelianBarang(),
 			// 'id_barang' => $this->request->getAutoNumber('master_barang', 'id_barang', '000', 11),
+			'id_kategori' => $this->request->getVar('power'),
 			'nama_barang' => $this->request->getVar('nama_barang'),
 			'qty' => $this->request->getVar('qty'),
 			'harga_beli' => $this->request->getVar('harga_beli'),
 			'harga_jual' => $this->request->getVar('harga_jual'),
-			'power' => $this->request->getVar('power')
+
 		]);
 		// dd($this->request->getVar());
 		session()->setFlashData('pesan', 'Data Pembelian Berhasil Ditambahkan');
 
-		return redirect()->to('/dashboard/pembelian');
+		return redirect()->to('/dashboard/masterbarang');
 	}
 
 
@@ -132,4 +136,10 @@ class Dashboard extends BaseController
 
 		return redirect()->to('/dashboard');
 	}
+
+	// public function data_barang()
+	// {
+
+	// 	return view('master_barang', compact('databrg'));
+	// }
 }

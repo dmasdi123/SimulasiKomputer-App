@@ -91,9 +91,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('/dashboard/pembelian'); ?>" class="nav-link ">
+                <a href="<?= base_url('/dashboard/masterbarang'); ?>" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Data Pembelian</p>
+                  <p>Master Barang</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -151,8 +151,8 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
-                        <label class="ml-1">ID Nota</label>
-                        <input type="text" class="form-control mb-2" placeholder="Masukan ID Nota Simulasi">
+                        <label class="ml-1">INV Simulasi</label>
+                        <input type="text" class="form-control mb-2" id="simulasi" placeholder="Masukan INV Nota Simulasi" value="SM/MTK/">
                         <label class="ml-1">Invoice</label>
                         <input type="number" class="form-control mb-2" name="invoice">
                         <label class="ml-1">Nama Costumer</label>
@@ -322,7 +322,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="tbl-barang">
               <thead class="thead-dark text-center">
                 <tr>
                   <th scope="col">Kode Barang</th>
@@ -338,36 +338,6 @@
                   <td class="text-center">4</td>
                   <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
                 </tr>
-                <tr>
-                  <th scope="row">BR002</th>
-                  <td>AM4 Raven Ridge Ryzen 3 2200G 3.5 Ghz Box</td>
-                  <td class="text-center">6</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR003</th>
-                  <td>ASRock X570 Phantom Gaming X</td>
-                  <td class="text-center">3</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR004</th>
-                  <td>ASRock X570 Phantom Gaming X</td>
-                  <td class="text-center">3</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR005</th>
-                  <td>ASRock X570 Phantom Gaming X</td>
-                  <td class="text-center">3</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
-                <tr>
-                  <th scope="row">BR006</th>
-                  <td>ASRock X570 Phantom Gaming X</td>
-                  <td class="text-center">3</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -380,4 +350,5 @@
   </div>
 </div>
 <!-- modal data barang penjualan end -->
+
 <?= $this->endSection(); ?>
