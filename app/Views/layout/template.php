@@ -42,8 +42,57 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
     $(document).ready(function() {
         $("#tbl-barang").DataTable();
+        $("#tbl-simulasi").DataTable();
+        $("#btnsimulasi").attr("style", "visibility: hidden");
 
     });
+</script>
+<script>
+    $("#simulasi").keyup(function() {
+        $("#penjualan").attr("style", "visibility: visible");
+        $("#btnsimulasi").attr("style", "visibility: hidden");
+        var inv = $(this).val();
+        $.ajax({
+            type: 'POST',
+            url: '<?= base_url(); ?>/dashboard/showsimulasi',
+            dataType: "JSON",
+            data: {
+                id: inv
+            },
+            success: function(result) {
+                var html = '';
+                var urldel = '<?= base_url(); ?>/dashboard/showsimulasi';
+                for (var i = 0; i < result.length; i++) {
+                    var no = parseInt(i);
+                    no++;
+                    var satuan = result[i].harga_jual / result[i].qty;
+                    html += '<tr>' +
+                        '<td>' + no + '</td>' +
+                        '<td><input type="text" size="80" style="border: none; pointer-events: none;" name="barang[]" value="' + result[i].nama_brg + '"></input><input type="text" name="idbarang[]" value="' + result[i].id_barang + '" hidden></input</td>' +
+                        '<td>' + satuan + '</td>' +
+                        '<td><input type="text" style="width:50%; border: none; pointer-events: none;" name="qty[]" value="' + result[i].qty + '"></input></td>' +
+                        '<td><input type="text" style="width:100%; border: none; pointer-events: none;" name="harga[]" value="' + result[i].harga_jual + '"></input></td>' +
+                        '<td><a class="hapus" href="' + urldel + '/' + result[i].id_notas + '"><button class="btn btn-danger" type="submit" name="delete" value=""><i class="fas fa-trash"></i></button></a></td>' +
+                        '</tr>';
+
+                    // input data pemesan
+                    $('#cust').val(result[i].customer);
+                    $('#telp').val(result[i].notelp);
+                    $('#alamat').val(result[i].alamat);
+                    $("#penjualan").attr("style", "visibility: hidden");
+                    $("#btnsimulasi").attr("style", "visibility: visible");
+                }
+                $('#data-cart').html(html);
+
+
+            },
+            error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+            }
+        })
+    })
+</script>
+<script>
 </script>
 
 

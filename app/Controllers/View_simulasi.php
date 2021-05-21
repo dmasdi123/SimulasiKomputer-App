@@ -91,6 +91,7 @@ class View_simulasi extends BaseController
 	{
 		// dd($this->request->getVar());
 		$barang = $this->request->getVar('s_barang[]');
+		$id_brg = $this->request->getVar('idbrg[]');
 		$qty = $this->request->getVar('qs_barang[]');
 		$harga = $this->request->getVar('hs_barang[]');
 		$inv = $this->request->getVar('inv');
@@ -99,7 +100,7 @@ class View_simulasi extends BaseController
 		$hp = $this->request->getVar('hp');
 		$alamat = $this->request->getVar('alamat');
 
-		$this->simulasi->insertsm($barang, $qty, $harga, $inv, $tgl, $cust, $hp, $alamat);
+		$this->simulasi->insertsm($barang, $id_brg, $qty, $harga, $inv, $tgl, $cust, $hp, $alamat);
 		session()->setFlashdata('pesan', 'Data berhasil disimpan!!, mohon nota simulasi segera di bawa ke toko untuk dilakukan prosess penjualan');
 		return redirect()->to('/view_simulasi');
 	}

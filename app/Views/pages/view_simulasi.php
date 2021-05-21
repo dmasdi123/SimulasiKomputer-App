@@ -56,6 +56,7 @@
                         ?>
                             <?php foreach ($proc1 as $p) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $p['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $p['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlprc = $hrgprc / $qtyprc); ?>" readonly> </td>
@@ -76,6 +77,7 @@
                         ?>
                             <?php foreach ($mobo as $mb) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $mb['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $mb['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlmb = $hrgmb / $qtymb); ?>" readonly></td>
@@ -96,6 +98,7 @@
                         ?>
                             <?php foreach ($ram as $r) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $r['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $r['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlram = $hrgram / $qtyram); ?>" readonly></td>
@@ -116,6 +119,7 @@
                         ?>
                             <?php foreach ($vga as $v) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $v['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $v['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlvga = $hrgvga / $qtyvga); ?>" readonly></td>
@@ -136,6 +140,7 @@
                         ?>
                             <?php foreach ($psu as $ps) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $ps['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $ps['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlpsu = $hrgpsu / $qtypsu); ?>" readonly></td>
@@ -156,6 +161,7 @@
                         ?>
                             <?php foreach ($hdd as $hd) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $hd['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $hd['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlhdd = $hrghdd / $qtyhdd); ?>" readonly></td>
@@ -176,6 +182,7 @@
                         ?>
                             <?php foreach ($ssd as $sd) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $sd['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $sd['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlssd = $hrgssd / $qtyssd); ?>" readonly></td>
@@ -196,6 +203,7 @@
                         ?>
                             <?php foreach ($case as $cs) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $cs['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $cs['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlcase = $hrgcase / $qtycase); ?>" readonly></td>
@@ -216,6 +224,7 @@
                         ?>
                             <?php foreach ($cooler as $col) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $col['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $col['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlcooler = $hrgcooler / $qtycooler); ?>" readonly></td>
@@ -236,6 +245,7 @@
                         ?>
                             <?php foreach ($peri as $per) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $per['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $per['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlperi = $hrgperi / $qtyperi); ?>" readonly></td>
@@ -256,6 +266,7 @@
                         ?>
                             <?php foreach ($monitor as $mon) : ?>
                                 <td><input size="40" type="text" name="s_barang[]" value="<?= $mon['nama_barang']; ?>" style="border: none; pointer-events: none;" readonly></td>
+                                <input type="text" name="idbrg[]" value="<?= $mon['id_barang']; ?>" hidden>
                             <?php endforeach; ?>
 
                             <td><input size="10" class="text-center" type="text" style="border: none; pointer-events: none;" value="<?= number_format($ttlmonitor = $hrgmonitor / $qtymonitor); ?>" readonly></td>

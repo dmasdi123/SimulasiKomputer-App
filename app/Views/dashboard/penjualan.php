@@ -138,7 +138,7 @@
           <div class="col">
             <div class="card card-primary">
               <div class="card-header">
-                <h2 class="card-title">Input Data Stock Barang Intel</h2>
+                <h2 class="card-title"></h2>
               </div>
               <?php if (session()->getFlashData('pesan')) :  ?>
                 <div class="alert alert-success" role="alert">
@@ -151,20 +151,27 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
+
                         <label class="ml-1">INV Simulasi</label>
-                        <input type="text" class="form-control mb-2" id="simulasi" placeholder="Masukan INV Nota Simulasi" value="SM/MTK/">
+                        <div class="input-group">
+                          <input type="text" class="form-control mb-2" name="simulasi" id="simulasi" placeholder="Masukan INV Nota Simulasi" value="SM/MTK/">
+                          <button type="button" class="btn btn-primary" style="height: 2%;" data-toggle="modal" data-target="#ModalSimulasi">
+                            List Simulasi
+                          </button>
+                        </div>
+
                         <label class="ml-1">Invoice</label>
-                        <input type="number" class="form-control mb-2" name="invoice">
+                        <input type="text" class="form-control mb-2" name="invoice" value="INV/MTK/">
                         <label class="ml-1">Nama Costumer</label>
-                        <input type="text" class="form-control mb-2" name="cutomer" placeholder="Masukan Nama">
+                        <input type="text" class="form-control mb-2" id="cust" name="cutomer" placeholder="Masukan Nama">
                       </div>
                       <div class="col-md-6">
                         <label class="ml-1">Tanggal Input</label>
                         <input type="text" class="form-control mb-2" disabled>
                         <label class="ml-1">No Telp</label>
-                        <input type="number" class="form-control mb-2" name="notelp" placeholder="Masukan No Telp">
+                        <input type="number" class="form-control mb-2" id="telp" name="notelp" placeholder="Masukan No Telp">
                         <label class="ml-1">Alamat</label>
-                        <input type="text" class="form-control mb-2" name="alamat" placeholder="Masukan Alamat">
+                        <input type="text" class="form-control mb-2" id="alamat" name="alamat" placeholder="Masukan Alamat">
                       </div>
                     </div>
                     <div class="row mt-5">
@@ -205,104 +212,51 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h2 class="card-title">Antrian</h2>
-              </div>
-              <div class="card-body">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">Invoice</th>
-                      <th scope="col">Nama Barang</th>
-                      <th scope="col">qty</th>
-                      <th scope="col">Harga Jual</th>
-                      <th scope="col">Nama Customer</th>
-                      <th scope="col">No Telp</th>
-                      <th scope="col">Alamat</th>
-                      <th scope="col">Tanggal Beli</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td><?= $autoinv; ?></td>
-                      <td>Processor</td>
-                      <td>12</td>
-                      <td>Rp. 5.000.000</td>
-                      <td>Pak Rangsang</td>
-                      <td>081234567</td>
-                      <td>Jakarta</td>
-                      <td>15-09-2021</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>000001</td>
-                      <td>Processor</td>
-                      <td>12</td>
-                      <td>Rp. 5.000.000</td>
-                      <td>Pak Rangsang</td>
-                      <td>081234567</td>
-                      <td>Jakarta</td>
-                      <td>15-09-2021</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>000001</td>
-                      <td>Processor</td>
-                      <td>12</td>
-                      <td>Rp. 5.000.000</td>
-                      <td>Pak Rangsang</td>
-                      <td>081234567</td>
-                      <td>Jakarta</td>
-                      <td>15-09-2021</td>
-                    </tr>
-                  </tbody>
-                </table>
+
+        <form action="/dashboard/insertData" method="POST">
+          <div class="row">
+            <div class="col">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h2 class="card-title"></h2>
+                </div>
+                <div class="card-body">
+
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Harga (Rp.)</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Total (Rp.)</th>
+                        <th scope="col">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="data-cart">
+
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="3">
+                          <h5 style="float: right;">Grand Total (Rp) :</h5 style="float: right;">
+                        </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="card card-primary card-outline">
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th width="20%">Nama Barang</th>
-                      <th>Qty</th>
-                      <th>Harga</th>
-                      <th>Total Harga</th>
-                      <th class="text-center">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td width="20%">Lorem, ipsum dolor sit a</td>
-                      <td>4</td>
-                      <td>Rp. 450.000</td>
-                      <td>Rp. 6.000.000</td>
-                      <td class="text-center">
-                        <button class="btn btn-danger">Hapus</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          <div class="row">
+            <div class="col text-center ">
+              <button class="btn btn-primary btn-lg mb-5 " id="penjualan">Checkout</button><br>
+              <button class="btn btn-primary btn-lg mb-5 " id="btnsimulasi">Checkout Simulasi</button>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col text-center">
-            <button class="btn btn-primary btn-lg mb-5 ">Print Nota</button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
 
@@ -350,5 +304,47 @@
   </div>
 </div>
 <!-- modal data barang penjualan end -->
+<!-- modal data simulasi -->
+<div class="modal fade" id="ModalSimulasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Daftar Antiran Simulasi</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <table class="table table-bordered" id="tbl-simulasi">
+              <thead class="thead-dark text-center">
+                <tr>
+                  <th scope="col">Nota</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">No. Hp</th>
+                  <th scope="col">Tanggal Input</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($simulasi as $sm) : ?>
+                  <tr>
+                    <td class="text-center"><?= $sm['no_nota']; ?></td>
+                    <td class="text-center"><?= $sm['customer']; ?></td>
+                    <td class="text-center"><?= $sm['notelp']; ?></td>
+                    <td class="text-center"><?= $sm['tgl_input']; ?></td>
+
+                  </tr>
+                <?php endforeach; ?>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="redirect();">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  end -->
 
 <?= $this->endSection(); ?>

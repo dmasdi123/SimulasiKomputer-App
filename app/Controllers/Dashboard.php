@@ -10,6 +10,7 @@ use Config\Exceptions;
 use Config\Validation;
 use Exception;
 use App\Models\MasterBarangModel;
+use App\Models\Simulasi;
 
 class Dashboard extends BaseController
 {
@@ -17,6 +18,7 @@ class Dashboard extends BaseController
 	protected $masterBarangPenjualan;
 	protected $masterBarangAntrian;
 	protected $kategorimodel;
+	protected $simulasi;
 
 
 	public function __construct()
@@ -25,6 +27,7 @@ class Dashboard extends BaseController
 		$this->masterBarangPenjualan = new \App\Models\masterBarangPenjualan();
 		$this->masterBarangAntrian = new \App\Models\MasterBarangAntrian();
 		$this->kategorimodel = new MasterBarangModel();
+		$this->simulasi = new Simulasi();
 	}
 
 
@@ -38,15 +41,19 @@ class Dashboard extends BaseController
 			'master' => $databrg,
 			'kategori' => $this->kategorimodel->getKategori()
 		];
-		return view('dashboard/masterbarang', $data);
+		return view('masterbarang', $data);
 	}
 
 	public function penjualan()
 	{
-
+		$simulasi = $this->simulasi->showSimulasi();
+		//menghilangkan duplicate data
+		$sm_filter = array_map("unserialize", array_unique(array_map("serialize", $simulasi)));
 		$data = [
 			'title' => 'Dashboard - Penjualan',
-			'autoinv' => $this->masterBarangPembelian->getPembelianBarang()
+			'autoinv' => $this->masterBarangPembelian->getPembelianBarang(),
+			'simulasi' => $sm_filter,
+
 		];
 		return view('dashboard/penjualan', $data);
 	}
@@ -137,9 +144,21 @@ class Dashboard extends BaseController
 		return redirect()->to('/dashboard');
 	}
 
-	// public function data_barang()
-	// {
+	public function showsimulasi()
+	{
+		$id = $this->request->getVar('id'); //menerima data dari ajax
+		$result = $this->simulasi->showSimulasibyId($id); //input value dari ajax ke model
+		return json_encode($result);
+	}
 
-	// 	return view('master_barang', compact('databrg'));
-	// }
+	public function insertData()
+	{
+
+		$barang = $this->request->getVar('barang[]');
+		$idbarang = $this->request->getVar('idbarang[]');;
+		$qty = $this->request->getVar('qty[]');
+		$harga = $this->request->getVar('harga[]');
+		$this->masterBarangPenjualan->insertPjFromSm($barang, $idbarang, $qty, $harga);
+		return redirect()->to('/dashboard');
+	}
 }
