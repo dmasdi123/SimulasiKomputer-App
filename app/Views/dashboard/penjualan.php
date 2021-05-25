@@ -138,6 +138,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
+
     <div class="content">
       <div class="container-fluid">
         <div class="row">
@@ -152,7 +153,7 @@
                 </div>
               <?php endif; ?>
               <div class="card card-info">
-                <form class="form-horizontal" action="<?= base_url() ?>/Dashboard/insertPenjualan" method="POST">
+                <form class="form-horizontal" action="<?= base_url() ?>/Dashboard/insertPenjualan" id="form_pj" method="POST">
                   <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
                   <div class="card-body">
                     <div class="row">
@@ -167,7 +168,7 @@
                         </div>
 
                         <label class="ml-1">Invoice</label>
-                        <input type="text" class="form-control mb-2" name="invoice" value="INV/MTK/">
+                        <input type="text" class="form-control mb-2" name="invoice" value="INV/MTK/<?= $invpj; ?>" readonly>
                         <label class="ml-1">Nama Costumer</label>
                         <input type="text" class="form-control mb-2" id="cust" name="cutomer" placeholder="Masukan Nama">
                       </div>
@@ -219,8 +220,33 @@
           </div>
         </div>
 
-        <form action="/dashboard/insertData" method="POST">
-          <div class="row">
+
+        <form action="/dashboard/insertData" method="POST" id="form_sm">
+          <div class="card card-primary" id="detail_sm">
+            <div class="card-header">
+              <h2 class="card-title">Detail Customer (from simulasi) : </h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <label class="ml-1">Customer</label>
+                  <input type="text" class="form-control mb-2" id="cust_sm" name="cust_sm">
+                  <input type="text" name="inv_pj" value="INV/MTK/<?= $invpj; ?>" hidden>
+                </div>
+                <div class="col-md-4">
+                  <label class="ml-1">No. Hp</label>
+                  <input type="text" class="form-control mb-2" id="hp_sm" name="hp_sm">
+                </div>
+                <div class="col-md-4">
+                  <label class="ml-1">Alamat</label>
+                  <input type="text" class="form-control mb-2" id="alamat_sm" name="alamat_sm">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mt-2">
             <div class="col">
               <div class="card card-primary">
                 <div class="card-header">
@@ -236,7 +262,6 @@
                         <th scope="col">Harga (Rp.)</th>
                         <th scope="col">Qty</th>
                         <th scope="col">Total (Rp.)</th>
-                        <th scope="col">Aksi</th>
                       </tr>
                     </thead>
                     <tbody id="data-cart">
@@ -248,7 +273,9 @@
                           <h5 style="float: right;">Grand Total (Rp) :</h5 style="float: right;">
                         </td>
                         <td></td>
-                        <td></td>
+                        <td>
+                          <input type="text" id="gtotal" style="width:100%; border: none; pointer-events: none;">
+                        </td>
                       </tr>
                     </tfoot>
                   </table>
@@ -259,13 +286,12 @@
           <div class="row">
             <div class="col text-center ">
               <button class="btn btn-primary btn-lg mb-5 " id="penjualan">Checkout</button><br>
-              <button class="btn btn-primary btn-lg mb-5 " id="btnsimulasi">Checkout Simulasi</button>
+              <button class="btn btn-primary btn-lg mb-5 " id="btnsimulasi" type="submit">Checkout Simulasi</button>
             </div>
           </div>
         </form>
       </div>
     </div>
-
   </div>
 </div>
 <!-- modal data barang penjualan -->
@@ -327,6 +353,7 @@
                   <th scope="col">Customer</th>
                   <th scope="col">No. Hp</th>
                   <th scope="col">Tanggal Input</th>
+                  <th scope="col">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -336,7 +363,10 @@
                     <td class="text-center"><?= $sm['customer']; ?></td>
                     <td class="text-center"><?= $sm['notelp']; ?></td>
                     <td class="text-center"><?= $sm['tgl_input']; ?></td>
-
+                    <td align="center">
+                      <button class="btn btn-warning"><i class="fas fa-eye"></i></button>
+                      <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    </td>
                   </tr>
                 <?php endforeach; ?>
 
@@ -352,5 +382,27 @@
   </div>
 </div>
 <!--  end -->
+
+<!-- modal print -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cetak Nota ?</h5>
+
+      </div>
+      <div class="modal-body">
+        <div class="print" style="margin-left:27%;">
+          <img src="/img/print.gif" alt="print">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.href='/dashboard'">Close</button>
+        <a href="/dashboard/print_nota/<?= $invpj; ?>" target="_blank"><button type="submit" class="btn btn-primary">Print</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end print -->
 
 <?= $this->endSection(); ?>

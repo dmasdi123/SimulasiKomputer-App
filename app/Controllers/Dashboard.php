@@ -53,6 +53,8 @@ class Dashboard extends BaseController
 			'title' => 'Dashboard - Penjualan',
 			'autoinv' => $this->masterBarangPembelian->getPembelianBarang(),
 			'simulasi' => $sm_filter,
+			'invpj' => $this->masterBarangPenjualan->getinvPJ(),
+			'gtotalsm'
 
 		];
 		return view('dashboard/penjualan', $data);
@@ -151,14 +153,30 @@ class Dashboard extends BaseController
 		return json_encode($result);
 	}
 
+	public function getSumPriceSM()
+	{
+		$id = $this->request->getVar('id'); //menerima data dari ajax
+		$result = $this->simulasi->showPriceSM($id); //input value dari ajax ke model
+		return json_encode($result);
+	}
+
 	public function insertData()
 	{
 
+		$id_sm = $this->request->getVar('id_sm[]');
+		$inv_pj = $this->request->getVar('inv_pj');
 		$barang = $this->request->getVar('barang[]');
-		$idbarang = $this->request->getVar('idbarang[]');;
+		$idbarang = $this->request->getVar('idbarang[]');
 		$qty = $this->request->getVar('qty[]');
 		$harga = $this->request->getVar('harga[]');
-		$this->masterBarangPenjualan->insertPjFromSm($barang, $idbarang, $qty, $harga);
+		$cust = $this->request->getVar('cust_sm');
+		$hp = $this->request->getVar('hp_sm');
+		$alamat = $this->request->getVar('alamat_sm');
+		$this->masterBarangPenjualan->insertPjFromSm($id_sm, $inv_pj, $barang, $idbarang, $qty, $harga, $cust, $hp, $alamat);
 		return redirect()->to('/dashboard');
+	}
+
+	public function show_nota()
+	{
 	}
 }
