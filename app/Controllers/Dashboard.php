@@ -41,7 +41,7 @@ class Dashboard extends BaseController
 			'master' => $databrg,
 			'kategori' => $this->kategorimodel->getKategori()
 		];
-		return view('masterbarang', $data);
+		return view('dashboard/masterbarang', $data);
 	}
 
 	public function penjualan()

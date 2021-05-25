@@ -62,7 +62,7 @@
           <img src="<?= base_url() ?>/asset/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Febrian Dimas Winaputra</a>
+          <a href="#" class="d-block"><?= session()->get('nama_admin') ?></a>
         </div>
       </div>
 
@@ -95,6 +95,12 @@
                 <a href="<?= base_url('/dashboard/masterbarang') ?>" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Master Barang</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('/dashboard/register') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Admin</p>
                 </a>
               </li>
               <li class="nav-item">

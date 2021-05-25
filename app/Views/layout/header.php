@@ -51,28 +51,35 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <div class="card">
-                                    <div class="card-header bg-success text-white">Login Form</div>
-                                    <div class="card-body">
-                                        <label for="username">Username</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
-                                            <input type="text" class="form-control" placeholder="Entry Your Username" aria-label="Username" aria-describedby="basic-addon1">
+                                <form action="<?= base_url() ?>/Auth/login" method="POST">
+                                    <div class="card">
+                                        <div class="card-header bg-success text-white">Login Form</div>
+                                        <?php if (session()->getFlashData('pesan')) :  ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                <?= session()->getFlashData('pesan'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="card-body">
+                                            <label for="username">Username</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                                <input type="text" class="form-control" placeholder="Entry Your Username" name="username" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                            <label for="password">Password</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                                                <input type="password" class="form-control" placeholder="Entry Your Password" name="password" aria-label="Password" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="mb-3 form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+                                            </div>
                                         </div>
-                                        <label for="password">Password</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
-                                            <input type="password" class="form-control" placeholder="Entry Your Password" aria-label="Password" aria-describedby="basic-addon1">
-                                        </div>
-                                        <div class="mb-3 form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+                                        <div class="card-footer text-center">
+                                            <button type="submit" class="btn btn-success" target="_blank">Login</button>
                                         </div>
                                     </div>
-                                    <div class="card-footer text-center">
-                                        <a href="<?= base_url() ?>/dashboard" target="_blank"><button type="button" class="btn btn-success">Login</button></a>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
