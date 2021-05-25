@@ -52,4 +52,9 @@ class Simulasi extends Model
     {
         return $this->select('*')->where('no_nota', $id)->findAll();
     }
+
+    public function showPriceSM($id)
+    {
+        return $this->selectSum('harga_jual')->where('no_nota', $id)->findAll();
+    }
 }

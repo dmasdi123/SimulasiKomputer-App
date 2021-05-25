@@ -40,6 +40,7 @@ $routes->get('/dashboard/masterbarang', 'Dashboard::index');
 $routes->get('/simulasi/(:segment)', 'Simulasi::index/$1');
 $routes->get('/view_simulasi', 'View_simulasi::index');
 
+$routes->get('dashboard/print_nota/(:segment)', 'Print_nota::index/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
