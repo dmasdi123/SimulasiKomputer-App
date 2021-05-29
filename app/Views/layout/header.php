@@ -51,7 +51,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <form action="<?= base_url() ?>/Auth/login" method="POST">
+                                <form action="/Auth/login" method="POST">
                                     <div class="card">
                                         <div class="card-header bg-success text-white">Login Form</div>
                                         <?php if (session()->getFlashData('pesan')) :  ?>
