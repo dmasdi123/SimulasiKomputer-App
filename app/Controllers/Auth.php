@@ -33,7 +33,11 @@ class Auth extends BaseController
         $getusername = $this->request->getVar('username');
         $getpassword = $this->request->getVar('password');
 
+        // $getusernamenull = $this->request->getVar('username');
+        // $getpasswordnull = $this->request->getVar('password');
+
         $cek = $this->userModel->getLogin($getusername, $getpassword);
+        // $cekWrong = $this->userModel->getLoginWrong($getusernamenull, $getpasswordnull);
 
         if (($cek['username'] == $getusername) && ($cek['password'] == $getpassword)) {
             // session_start();
@@ -47,14 +51,24 @@ class Auth extends BaseController
             // } elseif (($cek['username'] !== $getusername) && ($cek['password'] !== $getpassword)) {
             //     session()->setFlashData('pesan', 'Username or Password Invalid');
             //     return redirect()->to('/simulasi');
-        } else {
-            session()->setFlashData('pesan', 'Username or Password Invalid');
-            return redirect()->to('/simulasi');
+            // } elseif ($cekWrong['username'] == ) {
+            //     session()->setFlashData('pesan', 'Username or Password Invalid');
+            //     return redirect()->to('/simulasi');
+            // }
+            // } elseif (($cek['username'] == $getusername && $cek['password'] == $getpassword) || ($cek['username'] == null && $cek['password'] == null)) {
+            //     session()->setFlashData('pesan', 'Username or Password Invalid');
+            //     return redirect()->to('/simulasi');
+            // }
+            // }
+            // if ($cek['username'] == null && $cek['password'] == null) {
+            //     session()->setFlashData('pesan', 'Username or Password Invalid');
+            //     return redirect()->to('/simulasi');
+            // }
+            // } elseif (!empty($cek)) {
+            //     return redirect()->to('/simulasi');
+            // }
         }
-        // } elseif (($cek['username'] == $getusername && $cek['password'] == $getpassword) || ($cek['username'] == null && $cek['password'] == null)) {
-        //     session()->setFlashData('pesan', 'Username or Password Invalid');
-        //     return redirect()->to('/simulasi');
-        // }
+        return redirect()->to('/simulasi');
     }
 
 
