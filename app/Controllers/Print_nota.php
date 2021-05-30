@@ -15,6 +15,10 @@ class Print_nota extends BaseController
 
 	public function index($inv)
 	{
+		if (session()->get('username', 'password') == null) {
+			return redirect()->to('/simulasi');
+		}
+
 		$arr = 'INV/MTK/' . $inv;
 		$nota_inv = $this->penjualan->where('invoice', $arr)->findAll();
 		$data = [
