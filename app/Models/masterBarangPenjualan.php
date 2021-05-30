@@ -16,6 +16,11 @@ class MasterBarangPenjualan extends Model
         return $this->findAll();
     }
 
+    public function showTransaksi()
+    {
+        return $this->select('invoice,cutomer,notelp,alamat')->findAll();
+    }
+
     public function insertPjFromSm($id_sm, $inv_pj, $barang, $idbarang, $qty, $harga, $cust, $hp, $alamat)
     {
 
@@ -45,5 +50,20 @@ class MasterBarangPenjualan extends Model
             $id_n = $key['id_pj'] + 1;
         }
         return $id_n;
+    }
+
+    public function getAntrianBarang($inv)
+    {
+        return $this->select('*')->where('invoice', $inv)->findAll();
+    }
+
+    public function deletelist($id)
+    {
+        return $this->delete(['id_pj', $id]);
+    }
+
+    public function showPricePJ($id)
+    {
+        return $this->selectSum('harga_jual')->where('invoice', $id)->findAll();
     }
 }

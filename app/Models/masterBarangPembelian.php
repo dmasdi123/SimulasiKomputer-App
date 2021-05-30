@@ -24,4 +24,9 @@ class MasterBarangPembelian extends Model
     {
         return $this->findAll();
     }
+
+    public function showBarangbyID($id)
+    {
+        return $this->select('*')->where('id_barang', $id)->findAll();
+    }
 }

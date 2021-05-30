@@ -47,14 +47,17 @@ class Dashboard extends BaseController
 	public function penjualan()
 	{
 		$simulasi = $this->simulasi->showSimulasi();
-		//menghilangkan duplicate data
-		$sm_filter = array_map("unserialize", array_unique(array_map("serialize", $simulasi)));
+		$sm_filter = array_map("unserialize", array_unique(array_map("serialize", $simulasi))); //menghilangkan duplicate data
+
+		$transaksi = $this->masterBarangPenjualan->showTransaksi();
+		$tr_filter = array_map("unserialize", array_unique(array_map("serialize", $transaksi)));
 		$data = [
 			'title' => 'Dashboard - Penjualan',
 			'autoinv' => $this->masterBarangPembelian->getPembelianBarang(),
 			'simulasi' => $sm_filter,
 			'invpj' => $this->masterBarangPenjualan->getinvPJ(),
-			'gtotalsm'
+			'masterbrg' => $this->masterBarangPembelian->showBarang(),
+			'transaksi' => $tr_filter
 
 		];
 		return view('dashboard/penjualan', $data);
@@ -121,29 +124,31 @@ class Dashboard extends BaseController
 
 	public function insertPenjualan()
 	{
+		$gtotal = $this->request->getVar('harga_jual') * $this->request->getVar('qty');
 		$this->masterBarangPenjualan->insert([
+			'id_barang' => $this->request->getVar('id_brg'),
 			'invoice' => $this->request->getVar('invoice'),
 			'nama_brg' => $this->request->getVar('nama_brg'),
 			'qty' => $this->request->getVar('qty'),
-			'harga_jual' => $this->request->getVar('harga_jual'),
+			'harga_jual' => $gtotal,
 			'cutomer' => $this->request->getVar('cutomer'),
 			'notelp' => $this->request->getVar('notelp'),
 			'alamat' => $this->request->getVar('alamat')
 		]);
 
-		$this->masterBarangAntrian->insert([
-			'invoice' => $this->request->getVar('invoice'),
-			'nama_brg' => $this->request->getVar('nama_brg'),
-			'qty' => $this->request->getVar('qty'),
-			'harga_jual' => $this->request->getVar('harga_jual'),
-			'cutomer' => $this->request->getVar('cutomer'),
-			'notelp' => $this->request->getVar('notelp'),
-			'alamat' => $this->request->getVar('alamat')
-		]);
+		// $this->masterBarangAntrian->insert([
+		// 	'invoice' => $this->request->getVar('invoice'),
+		// 	'nama_brg' => $this->request->getVar('nama_brg'),
+		// 	'qty' => $this->request->getVar('qty'),
+		// 	'harga_jual' => $this->request->getVar('harga_jual'),
+		// 	'cutomer' => $this->request->getVar('cutomer'),
+		// 	'notelp' => $this->request->getVar('notelp'),
+		// 	'alamat' => $this->request->getVar('alamat')
+		// ]);
 
-		session()->setFlashData('pesan', 'Data Penjualan Berhasil Ditambahkan');
+		// session()->setFlashData('pesan', 'Data Penjualan Berhasil Ditambahkan');
 
-		return redirect()->to('/dashboard');
+		// return redirect()->to('/dashboard');
 	}
 
 	public function showsimulasi()
@@ -176,7 +181,31 @@ class Dashboard extends BaseController
 		return redirect()->to('/dashboard');
 	}
 
-	public function show_nota()
+	public function add()
 	{
+		$id = $this->request->getVar('id'); //data from ajax
+		$result = $this->masterBarangPembelian->showBarangbyID($id);
+		return json_encode($result);
+	}
+
+	public function showlist()
+	{
+		$inv = $this->request->getVar('inv'); //data from ajax
+		$result = $this->masterBarangPenjualan->getAntrianBarang($inv);
+		return json_encode($result);
+	}
+
+	public function delete()
+	{
+		$id = $this->request->getVar('id'); //data from ajax
+		$result = $this->masterBarangPenjualan->deletelist($id);
+		return json_encode($result);
+	}
+
+	public function getSumPricePJ()
+	{
+		$id = $this->request->getVar('inv'); //menerima data dari ajax
+		$result = $this->masterBarangPenjualan->showPricePJ($id); //input value dari ajax ke model
+		return json_encode($result);
 	}
 }

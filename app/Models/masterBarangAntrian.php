@@ -6,13 +6,12 @@ use CodeIgniter\Model;
 
 class MasterBarangAntrian extends Model
 {
-    protected $table      = 'antrian';
-    protected $primaryKey = 'id_pj';
-    protected $useTimestamps = true;
-    protected $allowedFields = ['id_pj', 'invoice', 'nama_brg', 'qty', 'harga_beli', 'harga_jual', 'cutomer', 'notelp', 'alamat'];
+    protected $table      = 'list_penjualan';
+    protected $primaryKey = 'id_listpj';
+    protected $allowedFields = ['invoice', 'nama_brg', 'qty', 'harga_jual', 'customer', 'notelp', 'alamat'];
 
-    public function getAntrianBarang()
-    {
-        return $this->findAll();
-    }
+    // public function getAntrianBarang()
+    // {
+    //     return $this->findAll();
+    // }
 }

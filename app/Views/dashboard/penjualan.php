@@ -139,7 +139,8 @@
           <div class="col">
             <div class="card card-primary">
               <div class="card-header">
-                <h2 class="card-title"></h2>
+                <button class="btn btn-dark" data-toggle="modal" data-target="#ModaldaftarTransaksi" style="float: right;">Daftar transaksi</button>
+                <h2 class="card-title"> </h2>
               </div>
               <?php if (session()->getFlashData('pesan')) :  ?>
                 <div class="alert alert-success" role="alert">
@@ -168,7 +169,7 @@
                       </div>
                       <div class="col-md-6">
                         <label class="ml-1">Tanggal Input</label>
-                        <input type="text" class="form-control mb-2" disabled>
+                        <input type="text" class="form-control mb-2" value="<?= date('d-m-Y'); ?>" disabled>
                         <label class="ml-1">No Telp</label>
                         <input type="number" class="form-control mb-2" id="telp" name="notelp" placeholder="Masukan No Telp">
                         <label class="ml-1">Alamat</label>
@@ -183,28 +184,29 @@
                         <label>Qty</label>
                       </div>
                       <div class="col-md-3">
-                        <label>Harga</label>
+                        <label>Harga Jual</label>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-8">
                         <div class="input-group">
-                          <input type="text" class="form-control" name="nama_brg" placeholder="Nama Barang">
+                          <input type="text" class="form-control" name="nama_brg" placeholder="Nama Barang" id="nama_brgpj">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalPenjualan">
                             Cari
                           </button>
                         </div>
                       </div>
                       <div class="col-1">
-                        <input type="number" class="form-control" name="qty" placeholder="Qty">
+                        <input type="number" class="form-control" name="qty" placeholder="Qty" id="qtypj">
                       </div>
                       <div class="col-3">
-                        <input type="number" class="form-control" name="harga_jual" placeholder="Harga">
+                        <input type="number" class="form-control" name="harga_jual" placeholder="Harga" id="harga_jualpj">
+                        <input type="number" class="form-control" name="id_brg" placeholder="Harga" id="id_brg" hidden>
                       </div>
                     </div>
                     <div class="row mt-5">
                       <div class="col text-center">
-                        <button class="btn btn-primary btn-lg" type="submit">Tambah</button>
+                        <button class="btn btn-primary btn-lg" type="submit" id="btntambah">Tambah</button>
                       </div>
                     </div>
                   </div>
@@ -294,10 +296,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLongTitle">Daftar Barang</h3>
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
-        </form>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -305,26 +303,29 @@
             <table class="table table-bordered" id="tbl-barang">
               <thead class="thead-dark text-center">
                 <tr>
-                  <th scope="col">Kode Barang</th>
                   <th scope="col">Nama Barang</th>
                   <th scope="col">Stock</th>
+                  <th scope="col">Buy</th>
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">BR001</th>
-                  <td>Galax Geforce RTX 2060 6GB DDR6 - Dual Fan</td>
-                  <td class="text-center">4</td>
-                  <td class="text-center"><button type="button" class="btn btn-success">Tambah</button></td>
-                </tr>
+                <?php foreach ($masterbrg as $brg) : ?>
+                  <tr>
+                    <td><?= $brg['nama_barang']; ?></td>
+                    <td class="text-center"><?= $brg['qty']; ?></td>
+                    <td class="text-center"><?= $brg['harga_beli']; ?></td>
+                    <td class="text-center"><a class="addbrg" href="/dashboard/add?id=<?= $brg['id_barang']; ?>"><button data-dismiss="modal" type="button" class="btn btn-success"><i class="fas fa-plus"></i></button></a></td>
+                  </tr>
+                <?php endforeach; ?>
+
               </tbody>
             </table>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="redirect();">Close</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -361,6 +362,50 @@
                       <button class="btn btn-warning"><i class="fas fa-eye"></i></button>
                       <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                     </td>
+                  </tr>
+                <?php endforeach; ?>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="redirect();">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  end -->
+
+<!-- modal data daftar transaksi -->
+<div class="modal fade" id="ModaldaftarTransaksi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Daftar Transaksi</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <table class="table table-bordered" id="tbl-transaksi">
+              <thead class="thead-dark text-center">
+                <tr>
+                  <th scope="col">Nota</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">No. Hp</th>
+                  <th scope="col">Alamat</th>
+                  <th scope="col">Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($transaksi as $tr) : ?>
+                  <tr>
+                    <td class="text-center"><?= $tr['invoice']; ?></td>
+                    <td class="text-center"><?= $tr['cutomer']; ?></td>
+                    <td class="text-center"><?= $tr['notelp']; ?></td>
+                    <td class="text-center"><?= $tr['alamat']; ?></td>
+                    <td class="text-center">Soon</td>
                   </tr>
                 <?php endforeach; ?>
 

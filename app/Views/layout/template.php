@@ -54,9 +54,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $(document).ready(function() {
         $("#tbl-barang").DataTable();
         $("#tbl-simulasi").DataTable();
+        $("#tbl-transaksi").DataTable();
         $("#btnsimulasi").attr("style", "visibility: hidden");
         $("#detail_sm").attr("style", "visibility: hidden");
         $("#detail_sm").css("position", "absolute");
+        loadlistpj();
 
     });
 </script>
@@ -95,10 +97,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $('#cust_sm').val(result[i].customer);
                     $('#hp_sm').val(result[i].notelp);
                     $('#alamat_sm').val(result[i].alamat);
+
                     $("#penjualan").attr("style", "visibility: hidden");
                     $("#penjualan").css("position", "absolute");
                     $("#btnsimulasi").attr("style", "visibility: visible");
                     $("#detail_sm").attr("style", "visibility: visible");
+
+                    $('#nama_brgpj').val('');
+                    $('#qtypj').val('');
+                    $('#harga_jualpj').val('');
 
                 }
                 $('#data-cart').html(html);
@@ -148,6 +155,148 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
             }
         })
+    })
+</script>
+
+<!-- load list penjualan -->
+<script>
+    function loadlistpj() {
+        $.ajax({
+            type: "POST",
+            url: '<?= base_url(); ?>/dashboard/showlist',
+            data: 'inv=' + $('input[name=invoice]').val(),
+            dataType: "JSON",
+            success: function(result) {
+                var html = '';
+                for (var i = 0; i < result.length; i++) {
+                    var no = parseInt(i);
+                    no++;
+                    var satuan = result[i].harga_jual / result[i].qty;
+                    html += '<tr>' +
+                        '<td>' + no + '</td>' +
+                        '<td><input type="text" style="width:50%; border: none; pointer-events: none;" name="nmbrg" value="' + result[i].nama_brg + '"></input></td>' +
+                        '<td>' + satuan + '</td>' +
+                        '<td>' + result[i].qty + '</td>' +
+                        '<td>' + result[i].harga_jual + '</td>' +
+                        '<td><a class="deletelist" href="/dashboard/delete?id=' + result[i].id_pj + '"><button class="btn btn-danger" onclick="deletelist()" type="button"><i class="fas fa-trash"></i></button></td>' +
+                        '</tr>';
+                }
+                $('#data-cart').html(html);
+
+
+            },
+            error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+            }
+
+
+        })
+        $.ajax({
+            type: "POST",
+            url: '<?= base_url(); ?>/dashboard/getSumPricePJ',
+            data: 'inv=' + $('input[name=invoice]').val(),
+            dataType: "JSON",
+            success: function(result) {
+                for (var i = 0; i < result.length; i++) {
+                    $("#gtotal").val(result[i].harga_jual);
+
+                }
+
+            },
+            error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+            }
+
+
+        })
+
+    }
+</script>
+
+<!-- delete item from load list penjualan -->
+<script>
+    function deletelist() {
+        $(".deletelist").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: $(this).attr('href'), //data dikirim dari a href
+                dataType: "JSON",
+                success: function() {
+                    loadlistpj();
+                },
+                error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+                }
+            })
+        })
+    }
+</script>
+
+<!-- crud tambah penjualan with ajax -->
+<script>
+    $("#btntambah").click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: '<?= base_url(); ?>/dashboard/insertPenjualan',
+            data: $("#form_pj").serialize(), //ambil semua data di dalam form
+            success: function() {
+                loadlistpj();
+                $('#nama_brgpj').val('');
+                $('#qtypj').val('');
+                $('#harga_jualpj').val('');
+
+            },
+            error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
+                // alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+                swal("Oops!", "Data barang tidak boleh kosong!", "warning");
+            }
+        })
+    })
+</script>
+
+<!-- add nama barang di kolom penjualan with ajax -->
+<script>
+    $(".addbrg").click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('href'), //data dikirim dari a href
+            dataType: "JSON",
+            success: function(result) {
+                for (var i = 0; i < result.length; i++) {
+                    $("#nama_brgpj").val(result[i].nama_barang);
+                    $("#harga_jualpj").val(result[i].harga_jual);
+                    $("#id_brg").val(result[i].id_barang);
+
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+            }
+        })
+    })
+</script>
+
+<!-- cetak nota penjualan not from simulasi -->
+<script>
+    $("#penjualan").click(function(e) {
+        e.preventDefault();
+        swal({
+                title: "Apakah anda yakin?",
+                text: "Pastikan dan periksa nama barang dan harga dengan benar!",
+                icon: "warning",
+                buttons: true,
+            })
+            .then((oke) => {
+                if (oke) {
+                    modalshow();
+                } else {
+                    swal("Gagal prosess checkout penjualan!!");
+                }
+            });
+
     })
 </script>
 
