@@ -57,4 +57,9 @@ class Simulasi extends Model
     {
         return $this->selectSum('harga_jual')->where('no_nota', $id)->findAll();
     }
+
+    public function deletesm($inv)
+    {
+        return $this->where('no_nota', $inv)->delete();
+    }
 }

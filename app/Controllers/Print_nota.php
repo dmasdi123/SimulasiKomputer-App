@@ -17,9 +17,11 @@ class Print_nota extends BaseController
 	{
 		$arr = 'INV/MTK/' . $inv;
 		$nota_inv = $this->penjualan->where('invoice', $arr)->findAll();
+		$gtotal = $this->penjualan->selectSum('harga_jual')->where('invoice', $arr)->findAll();
 		$data = [
 			'title' => 'Print Nota | Cipta Mandiri Komputer',
-			'detail' => $nota_inv
+			'detail' => $nota_inv,
+			'gtotal' => $gtotal
 
 		];
 		return view('pages/print_nota', $data);

@@ -71,6 +71,18 @@ class Dashboard extends BaseController
 		return view('dashboard/penjualan', $data);
 	}
 
+	public function viewsm()
+	{
+		$id = $this->request->getVar('inv');
+		$data = [
+			'title' => 'Nota Simulasi | Cipta Mandiri Computer',
+			'resultsm' => $this->simulasi->showSimulasibyId($id),
+			'gtotalsm' => $this->simulasi->showPriceSM($id)
+
+		];
+		return view('pages/viewsm', $data);
+	}
+
 	public function save()
 	{
 
@@ -115,7 +127,7 @@ class Dashboard extends BaseController
 
 		$this->masterBarangPembelian->save([
 			'id_barang' => $this->masterBarangPembelian->getPembelianBarang(),
-			// 'id_barang' => $this->request->getAutoNumber('master_barang', 'id_barang', '000', 11),
+			'id_adm' => $this->request->getVar('id_admin'),
 			'id_kategori' => $this->request->getVar('power'),
 			'nama_barang' => $this->request->getVar('nama_barang'),
 			'qty' => $this->request->getVar('qty'),
@@ -134,6 +146,7 @@ class Dashboard extends BaseController
 	{
 		$gtotal = $this->request->getVar('harga_jual') * $this->request->getVar('qty');
 		$this->masterBarangPenjualan->insert([
+			'id_adm' => $this->request->getVar('id_sm'),
 			'id_barang' => $this->request->getVar('id_brg'),
 			'invoice' => $this->request->getVar('invoice'),
 			'nama_brg' => $this->request->getVar('nama_brg'),
@@ -177,6 +190,7 @@ class Dashboard extends BaseController
 	{
 
 		$id_sm = $this->request->getVar('id_sm[]');
+		$id_adm = $this->request->getVar('id_adm');
 		$inv_pj = $this->request->getVar('inv_pj');
 		$barang = $this->request->getVar('barang[]');
 		$idbarang = $this->request->getVar('idbarang[]');
@@ -185,7 +199,7 @@ class Dashboard extends BaseController
 		$cust = $this->request->getVar('cust_sm');
 		$hp = $this->request->getVar('hp_sm');
 		$alamat = $this->request->getVar('alamat_sm');
-		$this->masterBarangPenjualan->insertPjFromSm($id_sm, $inv_pj, $barang, $idbarang, $qty, $harga, $cust, $hp, $alamat);
+		$this->masterBarangPenjualan->insertPjFromSm($id_sm, $id_adm, $inv_pj, $barang, $idbarang, $qty, $harga, $cust, $hp, $alamat);
 		return redirect()->to('/dashboard');
 	}
 
@@ -215,5 +229,14 @@ class Dashboard extends BaseController
 		$id = $this->request->getVar('inv'); //menerima data dari ajax
 		$result = $this->masterBarangPenjualan->showPricePJ($id); //input value dari ajax ke model
 		return json_encode($result);
+	}
+
+	public function deletesm()
+	{
+		$inv = $this->request->getVar('inv');
+		$hapus = $this->simulasi->deletesm($inv);
+		if ($hapus) {
+			return redirect()->to('/dashboard');
+		}
 	}
 }

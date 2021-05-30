@@ -18,25 +18,23 @@
             <tr>
                 <td><img style="width: 80%;" src="/img/LOGOCMsm.png" alt="Logo"></td>
                 <td width="30%">
-                    <h6>Nota Penjualan</h6>
+                    <h6>Nota Simulasi</h6>
                 </td>
 
                 <td width="30%">
-                    <div class="info"><?php foreach ($detail as $info) : ?> <?php endforeach; ?>
-                        Inv : <?= $info['invoice']; ?> <br>
-                        Date :<?= $info['created_at']; ?> <br>
-                        Name :<?= $info['cutomer']; ?> <br>
-                        Hp :<?= $info['notelp']; ?> <br>
-                        Alamat :<?= $info['alamat']; ?>
+                    <div class="info" style="float: right;">
+                        <?php foreach ($resultsm as $res) : ?><?php endforeach; ?>
+                        Inv : <?= $res['no_nota']; ?> |
+                        Date :<?= $res['tgl_input']; ?> |
+                        Cust : <?= $res['customer']; ?>
                     </div>
                 </td>
             </tr>
 
         </table>
         <table class="table">
-            <thead class=" table-light">
+            <thead class="table-light">
                 <tr>
-                    <th scope="col">No.</th>
                     <th scope="col">Nama Barang</th>
                     <th scope="col" width="">Harga (Rp.)</th>
                     <th scope="col" width="2%" class="text-center">Jumlah</th>
@@ -44,28 +42,27 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1;
-                foreach ($detail as $nota) : ?>
+                <?php foreach ($resultsm as $res) : ?>
                     <tr>
-                        <td><?= $no++; ?></td>
-                        <td><?= $nota['nama_brg']; ?></td>
-                        <td><?= number_format($nota['harga_jual'] / $nota['qty']); ?></td>
-                        <td align="center"><?= $nota['qty']; ?></td>
-                        <td><?= number_format($nota['harga_jual']); ?></td>
+                        <td><?= $res['nama_brg']; ?></td>
+                        <td><?= number_format($res['harga_jual'] / $res['qty']); ?></td>
+                        <td><?= $res['qty']; ?></td>
+                        <td><?= number_format($res['harga_jual']); ?></td>
+
                     </tr>
                 <?php endforeach; ?>
 
             </tbody>
             <tfoot class="table-light">
                 <tr>
-                    <td colspan="4">
+                    <td colspan="3">
                         <div class="total" style="float: right;">
                             <h6>Grand Total (Rp) :</h6>
                         </div>
                     </td>
                     <td>
-                        <?php foreach ($gtotal as $total) : ?>
-                            <?= number_format($total['harga_jual']); ?>
+                        <?php foreach ($gtotalsm as $ttl) : ?>
+                            <?= number_format($ttl['harga_jual']); ?>
                         <?php endforeach; ?>
                     </td>
                 </tr>
@@ -75,8 +72,5 @@
 
     </div>
 </body>
-<script type="text/javascript">
-    window.print();
-</script>
 
 </html>

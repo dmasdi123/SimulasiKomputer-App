@@ -9,7 +9,7 @@ class MasterBarangPenjualan extends Model
     protected $table      = 'penjualan';
     protected $primaryKey = 'id_pj';
     protected $useTimestamps = true;
-    protected $allowedFields = ['id_pj', 'id_barang', 'id_notas', 'invoice', 'nama_brg', 'qty', 'harga_jual', 'cutomer', 'notelp', 'alamat'];
+    protected $allowedFields = ['id_pj', 'id_adm', 'id_barang', 'id_notas', 'invoice', 'nama_brg', 'qty', 'harga_jual', 'cutomer', 'notelp', 'alamat'];
 
     public function getPenjualanBarang()
     {
@@ -21,12 +21,13 @@ class MasterBarangPenjualan extends Model
         return $this->select('invoice,cutomer,notelp,alamat')->findAll();
     }
 
-    public function insertPjFromSm($id_sm, $inv_pj, $barang, $idbarang, $qty, $harga, $cust, $hp, $alamat)
+    public function insertPjFromSm($id_sm, $id_adm, $inv_pj, $barang, $idbarang, $qty, $harga, $cust, $hp, $alamat)
     {
 
         for ($i = 0; $i < count($barang); $i++) {
             $result[] = array(
                 'id_barang' => $idbarang[$i],
+                'id_adm' => $id_adm,
                 'id_notas' => $id_sm[$i],
                 'invoice' => $inv_pj,
                 'nama_brg' => $barang[$i],

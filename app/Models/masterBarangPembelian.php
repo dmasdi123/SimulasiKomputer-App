@@ -9,7 +9,7 @@ class MasterBarangPembelian extends Model
     protected $table = 'master_barang';
     // protected $primaryKey = 'id_barang';
     protected $useTimestamps = true;
-    protected $allowedFields = ['id_barang', 'id_kategori', 'nama_barang', 'qty', 'harga_beli', 'harga_jual', 'power'];
+    protected $allowedFields = ['id_barang', 'id_adm', 'id_kategori', 'nama_barang', 'qty', 'harga_beli', 'harga_jual', 'power'];
 
     public function getPembelianBarang()
     {

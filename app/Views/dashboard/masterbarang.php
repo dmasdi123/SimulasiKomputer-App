@@ -10,7 +10,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/simulasi" class="nav-link">Page Simulasi</a>
+        <a href="/simulasi" class="nav-link" target="_blank">Page Simulasi</a>
       </li>
     </ul>
 
@@ -95,12 +95,6 @@
                 <a href="<?= base_url('/dashboard/masterbarang') ?>" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Master Barang</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('/dashboard/register') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Admin</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -202,6 +196,7 @@
                         </div>
                         <label class="ml-1">Tanggal Input</label>
                         <input type="text" class="form-control mb-2" value="<?= date('d-m-Y'); ?>" disabled>
+                        <input type="text" class="form-control mb-2" name="id_admin" value="<?= session()->get('id_adm') ?>" hidden>
                         <button class="btn btn-primary btn-md btn-block mt-3" type="submit">Simpan</button>
                       </div>
                     </div>

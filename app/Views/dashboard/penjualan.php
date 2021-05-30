@@ -10,7 +10,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/simulasi" class="nav-link">Page Simulasi</a>
+        <a href="/simulasi" class="nav-link" target="_blank">Page Simulasi</a>
       </li>
     </ul>
     <!-- Right navbar links -->
@@ -97,12 +97,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('/dashboard/register') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Admin</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="/Auth/logout" class="nav-link ">
                   <i class="fas fa-sign-out-alt nav-icon"></i>
                   <p>Logout</p>
@@ -148,18 +142,17 @@
                 <button class="btn btn-dark" data-toggle="modal" data-target="#ModaldaftarTransaksi" style="float: right;">Daftar transaksi</button>
                 <h2 class="card-title"> </h2>
               </div>
-              <?php if (session()->getFlashData('pesan')) :  ?>
-                <div class="alert alert-success" role="alert">
-                  <?= session()->getFlashData('pesan'); ?>
-                </div>
-              <?php endif; ?>
               <div class="card card-info">
                 <form class="form-horizontal" action="<?= base_url() ?>/Dashboard/insertPenjualan" id="form_pj" method="POST">
                   <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
-
+                        <?php if (session()->getFlashData('warning')) :  ?>
+                          <script>
+                            swal("Sukses!", "<?= session()->getFlashData('pesan'); ?>", "success");
+                          </script>
+                        <?php endif; ?>
                         <label class="ml-1">INV Simulasi</label>
                         <div class="input-group">
                           <input type="text" class="form-control mb-2" name="simulasi" id="simulasi" placeholder="Masukan INV Nota Simulasi" value="SM/MTK/">
@@ -208,6 +201,7 @@
                       <div class="col-3">
                         <input type="number" class="form-control" name="harga_jual" placeholder="Harga" id="harga_jualpj">
                         <input type="number" class="form-control" name="id_brg" placeholder="Harga" id="id_brg" hidden>
+                        <input type="text" class="form-control" id="id_sm" name="id_sm" value="<?= session()->get('id_adm') ?>" hidden>
                       </div>
                     </div>
                     <div class="row mt-5">
@@ -242,6 +236,7 @@
                 <div class="col-md-4">
                   <label class="ml-1">Alamat</label>
                   <input type="text" class="form-control mb-2" id="alamat_sm" name="alamat_sm">
+                  <input type="text" class="form-control mb-2" id="id_sm" name="id_adm" value="<?= session()->get('id_adm') ?>" hidden>
                 </div>
               </div>
             </div>
@@ -365,8 +360,8 @@
                     <td class="text-center"><?= $sm['notelp']; ?></td>
                     <td class="text-center"><?= $sm['tgl_input']; ?></td>
                     <td align="center">
-                      <button class="btn btn-warning"><i class="fas fa-eye"></i></button>
-                      <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                      <a href="/dashboard/viewsm?inv=<?= $sm['no_nota']; ?>" target="_blank"><button class="btn btn-warning"><i class="fas fa-eye"></i></button></a>
+                      <a href="/dashboard/deletesm?inv=<?= $sm['no_nota']; ?>"><button class="btn btn-danger" onclick="return confirm('Apakah anda yakin menghapus data <?= $sm['no_nota']; ?> ?')"><i class="fas fa-trash"></i></button></a>
                     </td>
                   </tr>
                 <?php endforeach; ?>
@@ -411,7 +406,7 @@
                     <td class="text-center"><?= $tr['cutomer']; ?></td>
                     <td class="text-center"><?= $tr['notelp']; ?></td>
                     <td class="text-center"><?= $tr['alamat']; ?></td>
-                    <td class="text-center">Soon</td>
+                    <td class="text-center"><a href="/dashboard/print_nota/<?= substr($tr['invoice'], 8); ?>" target="_blank"><button class="btn btn-warning"><i class="fas fa-info-circle"></i></button></a></td>
                   </tr>
                 <?php endforeach; ?>
 
