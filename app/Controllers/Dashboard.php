@@ -33,6 +33,10 @@ class Dashboard extends BaseController
 
 	public function index()
 	{
+		if (session()->get('username', 'password') == null) {
+			return redirect()->to('/simulasi');
+		}
+
 		$databrg =  $this->masterBarangPembelian->showBarang();
 		$data = [
 			'title' => 'Dashboard - Master Barang',
@@ -46,6 +50,10 @@ class Dashboard extends BaseController
 
 	public function penjualan()
 	{
+		if (session()->get('username', 'password') == null) {
+			return redirect()->to('/simulasi');
+		}
+
 		$simulasi = $this->simulasi->showSimulasi();
 		$sm_filter = array_map("unserialize", array_unique(array_map("serialize", $simulasi))); //menghilangkan duplicate data
 

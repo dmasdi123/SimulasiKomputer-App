@@ -36,7 +36,7 @@ $routes->setAutoRoute(true);
 $routes->get('/simulasi', 'Simulasi::index');
 $routes->add('/dashboard', 'Dashboard::penjualan');
 $routes->get('/dashboard/masterbarang', 'Dashboard::index');
-
+$routes->get('/logout', 'Auth::logout');
 $routes->get('/simulasi/(:segment)', 'Simulasi::index/$1');
 $routes->get('/view_simulasi', 'View_simulasi::index');
 

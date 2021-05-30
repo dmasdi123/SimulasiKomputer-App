@@ -10,7 +10,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="" class="nav-link">Page Simulasi</a>
+        <a href="/simulasi" class="nav-link">Page Simulasi</a>
       </li>
     </ul>
     <!-- Right navbar links -->
@@ -61,7 +61,7 @@
           <img src="<?= base_url(); ?>/asset/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Febrian Dimas Winaputra</a>
+          <a href="#" class="d-block"><?= session()->get('nama_admin') ?></a>
         </div>
       </div>
 
@@ -97,7 +97,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link ">
+                <a href="<?= base_url('/dashboard/register') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Admin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/Auth/logout" class="nav-link ">
                   <i class="fas fa-sign-out-alt nav-icon"></i>
                   <p>Logout</p>
                 </a>
