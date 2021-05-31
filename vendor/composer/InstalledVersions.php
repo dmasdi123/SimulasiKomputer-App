@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '3e3a71457d4424b0a3e7ec028c057782c89efaa9',
+    'reference' => '0416336d1035c8ba4f61a10b15d9abb3dba37131',
     'name' => 'codeigniter4/appstarter',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '3e3a71457d4424b0a3e7ec028c057782c89efaa9',
+      'reference' => '0416336d1035c8ba4f61a10b15d9abb3dba37131',
     ),
     'codeigniter4/framework' => 
     array (
