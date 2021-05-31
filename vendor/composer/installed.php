@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '0416336d1035c8ba4f61a10b15d9abb3dba37131',
+    'reference' => 'a8ebe5fd5fb1a2159e8544e9ead764e266fb98e9',
     'name' => 'codeigniter4/appstarter',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '0416336d1035c8ba4f61a10b15d9abb3dba37131',
+      'reference' => 'a8ebe5fd5fb1a2159e8544e9ead764e266fb98e9',
     ),
     'codeigniter4/framework' => 
     array (
