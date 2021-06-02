@@ -63,12 +63,12 @@
                                             <label for="username">Username</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
-                                                <input type="text" class="form-control" placeholder="Entry Your Username" name="username" aria-label="Username" aria-describedby="basic-addon1">
+                                                <input type="text" class="form-control" placeholder="Entry Your Username" name="username" aria-label="Username" aria-describedby="basic-addon1" required>
                                             </div>
                                             <label for="password">Password</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
-                                                <input type="password" class="form-control" placeholder="Entry Your Password" name="password" aria-label="Password" aria-describedby="basic-addon1">
+                                                <input type="password" class="form-control" placeholder="Entry Your Password" name="password" aria-label="Password" aria-describedby="basic-addon1" required>
                                             </div>
                                             <div class="mb-3 form-check">
                                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
