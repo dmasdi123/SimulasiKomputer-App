@@ -229,6 +229,7 @@
                   <th scope="col">Qty</th>
                   <th scope="col">Buy</th>
                   <th scope="col">Sell</th>
+                  <th scope="col">Aksi</th>
                 </tr>
               </thead>
               <tbody id="show-brg-data">
@@ -239,6 +240,10 @@
                     <td><?= $brg['qty']; ?></td>
                     <td>Rp. <?= number_format($brg['harga_beli']); ?></td>
                     <td>Rp. <?= number_format($brg['harga_jual']); ?></td>
+                    <td align="center">
+                      <a href="" target="_blank"><button class="btn btn-warning"><i class="fas fa-pen-square"></i></button></a>
+                      <a href=""><button class="btn btn-danger" onclick="return confirm('Apakah anda yakin menghapus data ?')"><i class="fas fa-trash"></i></button></a>
+                    </td>
                   </tr>
                 <?php endforeach; ?>
 

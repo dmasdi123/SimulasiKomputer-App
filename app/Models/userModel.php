@@ -14,10 +14,11 @@ class userModel extends Model
 
     public function getLogin($getusername, $getpassword)
     {
+        // return $this->db->table('admin')->where(array('username' => $getusername, 'password' => $getpassword))->get()->getRowArray();
         return $this->db->table('admin')->where(array('username' => $getusername, 'password' => $getpassword))->get()->getRowArray();
         // return $this->select('*')->where('username', $getusername)->orWhere('password', $getpassword)->findAll();
         // return $this->table('admin')->select('*')->where(array('username' => $getusername, 'password' => $getpassword))->get()->findAll();
-        return $this->table('admin')->select('username');
+        // return $this->table('admin')->select('username');
     }
 
     // public function getLoginWrong($getusernamenull, $getpasswordnull)

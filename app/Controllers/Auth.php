@@ -41,6 +41,7 @@ class Auth extends BaseController
 
         if (($cek['username'] == $getusername) && ($cek['password'] == $getpassword)) {
             // session_start();
+
             session()->set('id_adm', $cek['id_adm']);
             session()->set('username', $cek['username']);
             session()->set('password', $cek['password']);
